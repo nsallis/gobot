@@ -7,6 +7,7 @@ import (
 	"github.com/go-redis/redis"
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
+	"time"
 )
 
 var Log *logrus.Logger
@@ -54,6 +55,7 @@ func (u *User) Save() error {
 	if err != nil {
 		panic(err)
 	}
+	DB.ExpireAt(u.GetFieldName(), time.Now().Local().Add(3*24*time.Hour))
 	return nil
 }
 
