@@ -15,11 +15,7 @@ var log *logrus.Logger
 
 func main() {
 	Init()
-	routes := gin.Default()
-
-	routes.POST("/api/new_user", controllers.NewUser)
-
-	routes.Run()
+	RunServer(":8080")
 	// u := user.New()
 	// u.UserHash["email"] = "nsallis@enservio.com"
 	// fmt.Println("User sessionID: " + u.SessionID)
@@ -32,6 +28,12 @@ func main() {
 	// fmt.Println(text)
 }
 
+func RunServer(port string) {
+	routes := gin.Default()
+	routes.GET("/api/new_user", controllers.NewUser)
+	routes.Run(port)
+}
+
 func Init() {
 	db := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
@@ -42,4 +44,5 @@ func Init() {
 	log.Out = os.Stdout
 	user.Log = log
 	user.DB = db
+	user.RootNodeID = "99999999999999999999999999999999"
 }

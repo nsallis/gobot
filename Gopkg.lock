@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  name = "github.com/corpix/uarand"
+  packages = ["."]
+  revision = "37c9140f52f6bf4998ff7617c456d554d6a2dc2f"
+  version = "v0.0.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/gin-contrib/sse"
   packages = ["."]
@@ -30,6 +36,12 @@
   packages = ["."]
   revision = "9b3b1e0f5f99ae461456d768e7d301a7acdaa2d8"
   version = "v1.1.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/icrowley/fake"
+  packages = ["."]
+  revision = "4178557ae428460c3780a381c824a1f3aceb6325"
 
 [[projects]]
   name = "github.com/json-iterator/go"
@@ -100,6 +112,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "7128c4548725fdc0ba3370b63490fc386af77886a3c14a5e41a8cca0c489dd63"
+  inputs-digest = "6b36d110e3e8fa1b1e50da1ca5ab7a770832351f12b7eb0ae84de1d78c0d6ed6"
   solver-name = "gps-cdcl"
   solver-version = 1
