@@ -30,7 +30,7 @@ func main() {
 
 func RunServer(port string) {
 	routes := gin.Default()
-	routes.GET("/api/new_user", controllers.NewUser)
+	routes.GET("/api/v1/new_user", controllers.NewUser)
 	routes.Run(port)
 }
 
@@ -44,5 +44,5 @@ func Init() {
 	log.Out = os.Stdout
 	user.Log = log
 	user.DB = db
-	user.RootNodeID = "99999999999999999999999999999999"
+	user.RootNodeID = "0"
 }
