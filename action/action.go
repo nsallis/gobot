@@ -13,19 +13,20 @@ var Log *logrus.Logger
 var DB *redis.Client
 
 type Action struct {
-	ID       string
-	Key      string   // string used for matching agains a given user's text
-	Action   string   // executed by JS engine
-	Children []string // slice of action ids
+	ID          string
+	Key         string   // string used for matching agains a given user's text
+	Action      string   // executed by JS engine
+	Children    []string // slice of action ids
 	IsDirective bool
 }
 
 func New() *Action {
 	a := &Action{
-		ID:       uuid.New().String(),
-		Key:      "%r*",          // defaults to matching everything. % is our escape character. %r denotes regex
-		Action:   "return null;", // don't do anything by default
-		Children: []string{},
+		ID:          uuid.New().String(),
+		Key:         "%r*",          // defaults to matching everything. % is our escape character. %r denotes regex
+		Action:      "return null;", // don't do anything by default
+		Children:    []string{},
+		IsDirective: false,
 	}
 	return a
 }
@@ -71,9 +72,9 @@ func Load(id string) (*Action, error) {
 	a.Key = result.Val()["key"]
 	a.Action = result.Val()["action"]
 	err := json.Unmarshal([]byte(result.Val()["children"]), &a.Children)
-	if err != nil{
+	if err != nil {
 		Log.WithFields(logrus.Fields{
-			"children": result.Val()["children"]
+			"children": result.Val()["children"],
 		}).Error("could not unmarshal children for action")
 		return nil, err
 	}
@@ -81,17 +82,17 @@ func Load(id string) (*Action, error) {
 }
 
 func (a *Action) GetFieldName() string {
-	return "action_" + a.ID
+	return "action:" + a.ID
 }
 
 func (a *Action) Validate() map[string]string {
-	errors = map[string]string{}
-	idMatch := regexp.Compile("^[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}")
+	errs := map[string]string{}
+	idMatch, _ := regexp.Compile("^[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}")
 	if !idMatch.MatchString(a.ID) {
-		errors["ID"] = "Invalid"
+		errs["ID"] = "Invalid"
 	}
 	if a.IsDirective && len(a.Children) > 1 {
-		errors["children"] = "directives may only have one child"
+		errs["children"] = "directives may only have one child"
 	}
-	return errors
+	return errs
 }

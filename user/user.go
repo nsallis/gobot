@@ -32,7 +32,7 @@ func New() *User {
 
 func (u *User) Save() error {
 	if DB == nil {
-		Log.Error("DB is not set of user package")
+		Log.Error("DB is not set for user package")
 		return errors.New("DB is not set")
 	}
 	if u.SessionID == "" {

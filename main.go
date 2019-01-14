@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 	"github.com/nsallis/gobot/controllers"
+	"github.com/nsallis/gobot/helpers"
 	"github.com/nsallis/gobot/user"
 	"github.com/sirupsen/logrus"
 	"os"
@@ -45,4 +46,7 @@ func Init() {
 	user.Log = log
 	user.DB = db
 	user.RootNodeID = "0"
+	helpers.DB = db
+	helpers.Log = log
+	helpers.BootActions()
 }

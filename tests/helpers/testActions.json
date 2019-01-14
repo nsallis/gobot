@@ -1,0 +1,9 @@
+[
+    {
+        "ID": "00000000-0000-0000-0000-000000000000",
+        "Key": "%r*",
+        "Action": "return null",
+        "Children": ["asd", "sdf"],
+        "IsDirective": false
+    }
+]
