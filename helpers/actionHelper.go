@@ -8,7 +8,6 @@ import (
 	"github.com/nsallis/gobot/action"
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
-	"testing"
 )
 
 var (
@@ -16,7 +15,7 @@ var (
 	DB  *redis.Client
 )
 
-func BootActions(t *testing.T, pathOverride ...string) error {
+func BootActions(pathOverride ...string) error {
 	if DB == nil {
 		Log.Error("DB must be initialized before booting actions")
 		return errors.New("DB must be initialized before booting actions")

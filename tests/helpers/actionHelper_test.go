@@ -30,7 +30,7 @@ func Setup() {
 
 func TestActionBoot(t *testing.T) {
 	Setup()
-	helpers.BootActions(t, "./testActions.json")
+	helpers.BootActions("./testActions.json") // override default config location
 	bootedAction, err := action.Load("00000000-0000-0000-0000-000000000000")
 	if err != nil {
 		t.Errorf(
